@@ -1,0 +1,74 @@
+
+
+<ol class="breadcrumb">
+    <li><a href="">Inicio</a></li>
+    <li class="active">Estudiantes</li>
+</ol>
+<div class="container">
+    <h1 class="header2 text-center">Estudiantes <small><a href="{$dirPDf}" target="_blank" class="glyphicon glyphicon-print btn btn-danger"></a></small> </h1>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">  
+            <form action="" method="GET"  class="btn-group">
+                {if $session.type_user=='root'}
+                    <select name="type" class="btn btn-default">
+                        <option value="NULL">Seccion</option>
+                        {foreach from=$secciones item=seccion}
+
+                            <option value="{$seccion}">{$seccion}</option>
+                        {/foreach}
+                    </select> 
+                {else}
+                    <input type="hidden" name="type" value='NULL'>
+                {/if}
+
+                <select name="discapacidad"  class="btn btn-default">
+
+                    <option value="NULL">Discapacidad</option>
+                    <option value="0">No Discapacitado</option>
+                    <option value="true">Discapacitado</option>
+                </select>
+
+
+                <button class="btn btn-info glyphicon glyphicon-search " style="    background: rgba(245, 8, 8, 0.92);
+                        border-color: rgba(245, 8, 8, 0.7);"></button>
+
+
+            </form></div>
+        <div class="col-sm-3"></div>
+
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>sexo</th>
+                <th>Grado</th>
+                <th>Seccion</th>
+                <th>Discapacidad</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {estudiante->each row=row}
+            <tr>
+                <td>{$row.cedula_estu}</td>
+                <td>{$row.nombres_estu}</td>
+                <td>{$row.apellidos_estu}</td>
+                <td>{$row.sexo_estu}</td> 
+                <td>{$row.grado_estu}</td> 
+                <td>{$row.seccion_estu}</td> 
+                <td>{$row.discapacidad_estu}</td> 
+
+
+            </tr>
+            {/estudiante->each}
+        </tbody>
+    </table>
+
+
+
+</div>

@@ -1,0 +1,14 @@
+installacion:
+Para instalar solo copie los archivos en un directorio de su servidor
+y carge la base de datos que esta en el archivo /protected/carnetizacionso.sql
+en su servidor mysql. luego cambia el usuario y contraseña del Mysql en el archivo
+/protected/mysqli.php en el indice 'param' del array que hay se encuentra 
+este indice es un array de 4 elementos el primero es el host, el segundo 
+es el usuario de Mysql, el tercero es la clave y el cuarto es el nombre de 
+la base de datos.
+debera colocar su usuario y contraseña que tenga configurado en el servidor mysql
+una vez configurado inica la aplicacion desde el navegador llamando al archivo
+index.php
+El usuario y contraseña del sitema por defecto es
+usuario: root
+contraseña 123456
