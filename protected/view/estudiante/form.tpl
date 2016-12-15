@@ -15,6 +15,7 @@
     {literal}
         var cam_ini = false;
         var shutter = new Audio();
+        var Foto = false;
         shutter.autoplay = false;
         shutter.src = navigator.userAgent.match(/Firefox/) ? 'src/shutter.ogg' : 'src/shutter.mp3';
         $(document).ready(function () {
@@ -30,8 +31,12 @@
 
                 // actually snap photo (from preview freeze) and display it
                 Webcam.snap(function (image_data_uri) {
-                    console.log(image_data_uri);
-                    return;
+                    //console.log(image_data_uri);
+                    // return;
+                    if (!Foto) {
+                        alert("Porfavor tome una foto Presionando el boton 'Tomar Foto' ");
+                        return;
+                    }
                     var image_fmt = '';
                     if (image_data_uri.match(/^data\:image\/(\w+)/))
                         image_fmt = RegExp.$1;
@@ -81,12 +86,13 @@
         });
         function preview_snapshot() {
             // freeze camera so user can preview pic
+            Foto = true;
             shutter.play();
             Webcam.freeze();
         }
 
         function cancel_preview() {
-
+            Foto = false;
             // cancel preview freeze and return to live camera feed
             Webcam.unfreeze();
         }

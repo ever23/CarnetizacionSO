@@ -17,6 +17,10 @@ return [
             ],
         ]
     ],
+    'Router' =>
+    [
+        'protocol' => 'https',
+    ],
     'Autenticate' =>
     [
         'class' => '\\Cc\\Mvc\\Autenticacion',

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-11-30 04:43:09
+/* Smarty version 3.1.30, created on 2016-12-13 10:38:07
   from "E:\www\CarnetizacionSO\protected\view\estudiante\form.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_583e4acdaf9df3_49710104',
+  'unifunc' => 'content_584fc17feca369_26344818',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f06a44629550c626ed5a018a9a6a3b740a526eab' => 
     array (
       0 => 'E:\\www\\CarnetizacionSO\\protected\\view\\estudiante\\form.tpl',
-      1 => 1480477373,
+      1 => 1481621871,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_583e4acdaf9df3_49710104 (Smarty_Internal_Template $_smarty_tpl) {
+function content_584fc17feca369_26344818 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <ol class="breadcrumb">
     <li><a href="">Inicio</a></li>
@@ -44,6 +44,7 @@ function content_583e4acdaf9df3_49710104 (Smarty_Internal_Template $_smarty_tpl)
     
         var cam_ini = false;
         var shutter = new Audio();
+        var Foto = false;
         shutter.autoplay = false;
         shutter.src = navigator.userAgent.match(/Firefox/) ? 'src/shutter.ogg' : 'src/shutter.mp3';
         $(document).ready(function () {
@@ -59,8 +60,12 @@ function content_583e4acdaf9df3_49710104 (Smarty_Internal_Template $_smarty_tpl)
 
                 // actually snap photo (from preview freeze) and display it
                 Webcam.snap(function (image_data_uri) {
-                    console.log(image_data_uri);
-                    return;
+                    //console.log(image_data_uri);
+                    // return;
+                    if (!Foto) {
+                        alert("Porfavor tome una foto Presionando el boton 'Tomar Foto' ");
+                        return;
+                    }
                     var image_fmt = '';
                     if (image_data_uri.match(/^data\:image\/(\w+)/))
                         image_fmt = RegExp.$1;
@@ -110,12 +115,13 @@ function content_583e4acdaf9df3_49710104 (Smarty_Internal_Template $_smarty_tpl)
         });
         function preview_snapshot() {
             // freeze camera so user can preview pic
+            Foto = true;
             shutter.play();
             Webcam.freeze();
         }
 
         function cancel_preview() {
-
+            Foto = false;
             // cancel preview freeze and return to live camera feed
             Webcam.unfreeze();
         }

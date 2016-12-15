@@ -18,6 +18,7 @@
         <li> <a href="estudiante/insertar"><img src="src/images/agregar48.jpg"> Agregar Nuevo Estudiante</a></li>
         <li><a href="representante/"><img src="src/images/representante48.png"> Representantes</a></li>
         <li><a href="estudiante/"><img src="src/images/buscar48.jpg"> Buscar Estudiante</a></li>
+        <li><a href="estudiante/CompruevaCarnet"><img src="src/images/carnet.png"> Verificar Carnet</a></li>
         <li><a href="estudiante/reportes"><img src="src/images/reporte.png"> Generar Reportes</a></li>
 
         {if $session.type_user=='root'}

@@ -1,0 +1,43 @@
+
+.scanner-laser{
+    position: absolute;
+    margin: 40px;
+    height: 30px;
+    width: 30px;
+}
+.laser-leftTop{
+    top: 0;
+    left: 0;
+    border-top: solid red 5px;
+    border-left: solid red 5px;
+}
+.laser-leftBottom{
+    bottom: 0;
+    left: 0;
+    border-bottom: solid red 5px;
+    border-left: solid red 5px;
+}
+.laser-rightTop{
+    top: 0;
+    right: 0;
+    border-top: solid red 5px;
+    border-right: solid red 5px;
+}
+.laser-rightBottom{
+    bottom: 0;
+    right: 0;
+    border-bottom: solid red 5px;
+    border-right: solid red 5px;
+}
+#laser{
+    width: 280px;
+    height: 4px;
+    position: absolute;
+    display: none;
+
+    border-radius: 115px / 7px;
+    background-image: -webkit-linear-gradient(270deg,rgba(255,0,4,0.00) 0%,rgba(255,0,0,1.00) 51.30%,rgba(255,0,0,0.00) 98.45%);
+    background-image: -moz-linear-gradient(270deg,rgba(255,0,4,0.00) 0%,rgba(255,0,0,1.00) 51.30%,rgba(255,0,0,0.00) 98.45%);
+    background-image: -o-linear-gradient(270deg,rgba(255,0,4,0.00) 0%,rgba(255,0,0,1.00) 51.30%,rgba(255,0,0,0.00) 98.45%);
+    background-image: linear-gradient(180deg,rgba(255,0,4,0.00) 0%,rgba(255,0,0,1.00) 51.30%,rgba(255,0,0,0.00) 98.45%);
+}

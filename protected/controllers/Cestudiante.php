@@ -65,33 +65,49 @@ class Cestudiante extends ExtendsController implements ExtByController, AccessUs
             return;
         }
         $estu = $estudiante->fetch()->GetRow();
-        // $representante->Select("id_repre=" . $estu['id_repre']);
-        // $this->view->representante = $representante->fetch();
+// $representante->Select("id_repre=" . $estu['id_repre']);
+// $this->view->representante = $representante->fetch();
 
         $date = new \DateTime('now');
         $estu['edad'] = $date->diff(new \DateTime((string) $estu['nacimiento_estu']))->format("%y");
-
-        // $png->CreateImageGd($c->App['app'] . 'carnet.jpg');
-        $carnet = new \Cc\ImageGD($c->App['app'] . 'carnet.jpg');
         $fotos->Select("id_foto=" . $estu['id_foto']);
-        $f = $fotos->fetch();
-        $foto = new \Cc\ImageGD($f['bin_foto']);
-        //$carnet->CopyResample($carnet, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h)
-        //$carnet->CopyResample($foto, 56, 90, 0, 0, 110, 90, $foto->w, $foto->h);
-        $foto->Resize(110, 90);
-        $carnet->Copy($foto, 56, 90, 0, 0, 110, 90);
-        unset($foto);
-        $carnet->LoadTtf('arial', 'src/fonts/arial.ttf');
-        $carnet->TextTtf(ucwords($estu['cedula_estu']), 7, 0, 20, 215, [0, 0, 0], 'arial');
-        $carnet->TextTtf(ucwords($estu['nombres_estu'] . ' ' . $estu['apellidos_estu']), 7, 0, 20, 238, [0, 0, 0], 'arial');
-        $carnet->TextTtf(ucwords($estu['grado_estu']), 7, 0, 20, 258, [0, 0, 0], 'arial');
-        $carnet->TextTtf(ucwords($estu['seccion_estu']), 7, 0, 22, 281, [0, 0, 0], 'arial');
-        $carnet->TextTtf(ucwords($estu['turno_estu']), 7, 0, 22, 305, [0, 0, 0], 'arial');
-        $carnet->TextTtf(ucwords($estu['discapacidad_estu'] ? $estu['discapacidad_estu'] : 'No Posee'), 7, 0, 22, 327, [0, 0, 0], 'arial');
-        $carnet->To('image/png');
+//  $f = ;
+        $carnet = new Carnet();
 
-        $this->view->carnet = $carnet->OutputBase64(true);
+        $this->view->carnet = $carnet->From($estu, $fotos->fetch());
+        $this->view->backcarnet = $carnet->Back($estu);
         $this->LoadView('estudiante/carnet.tpl', ['id_estu' => $id_estu]);
+    }
+
+    public function CompruevaCarnet()
+    {
+        $this->LoadView("estudiante/ScanerQr.tpl");
+    }
+
+    public function IsEstudianteExist(Json $j, DBtabla $representante, DBtabla $estudiante, $id)
+    {
+        $carnet = new Carnet();
+        $id_estu = $carnet->GetId($id);
+        if (is_null($id_estu))
+        {
+            $j['error'] = 'El Codigo Qr Es Invalido';
+            return;
+        }
+        $campos = ['seccion.grado_seccion as grado_estu', 'seccion.char_seccion as seccion_estu', 'estudiante.*'];
+        $estudiante->Select($campos, "id_estu=" . $id_estu . " ", ['>seccion', '>docentes']);
+        if ($estudiante->num_rows != 1)
+        {
+            $j['error'] = 'Estudiante no existe';
+            return;
+        }
+        $estu = $estudiante->fetch()->GetRow();
+        $representante->Select("id_repre=" . $estu['id_repre']);
+        $this->view->representante = $representante->fetch();
+
+        $date = new \DateTime('now');
+        $estu['edad'] = $date->diff(new \DateTime((string) $estu['nacimiento_estu']))->format("%y");
+        $this->view->estudiante = $estu;
+        $j['html'] = $this->FetchView('estudiante/info.tpl');
     }
 
     public function info(Html $h, DBtabla $representante, DBtabla $estudiante, $id_estu = 0)
@@ -196,7 +212,7 @@ class Cestudiante extends ExtendsController implements ExtByController, AccessUs
 
                 $cookie['mensaje'] = "Se ha insertado un estudiante";
                 $this->Redirec('estudiante/info' . ['id_estu' => $estudiante->AutoIncrement()]);
-                //$j['location'] = "estudiante/info?id_estu=" . $estudiante->AutoIncrement();
+//$j['location'] = "estudiante/info?id_estu=" . $estudiante->AutoIncrement();
 //  $this->Redirec('estudiante/index', ['id_estu' => $estudiante->AutoIncrement()]);
             } else
             {
