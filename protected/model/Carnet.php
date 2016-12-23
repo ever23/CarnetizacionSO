@@ -59,14 +59,15 @@ class Carnet
         $encript = new Security();
         $data = $encript->encrypt($url, $this->Llave, true);
 
-        ob_start();
-        \QRcode::png($data, false, QR_ECLEVEL_M, 3, 0);
-        $Qrcode = new \Cc\ImageGD(ob_get_contents());
-        ob_end_clean();
-        header('Content-type: ' . Mvc::App()->Content_type);
-
-        $carnet->Copy($Qrcode, 60, 200, 0, 0, 100, 100);
-        unset($Qrcode);
+        // ob_start();
+        $dateCode = \QRcode::raw($data, false, QR_ECLEVEL_M, 3, 0);
+        //var_dump($dateCode);
+        // $Qrcode = new \Cc\ImageGD(ob_get_contents());
+        //  ob_end_clean();
+        // header('Content-type: ' . Mvc::App()->Content_type);
+        $carnet->PrintBinary($dateCode, 4, 60, 200, 100, 100, [223, 1, 9]);
+        // $carnet->Copy($Qrcode, 60, 200, 0, 0, 100, 100);
+        //unset($Qrcode);
         $carnet->To('image/png');
 
         return $carnet->OutputBase64(true);
