@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'class' => '\\Cc\\Mvc\\MySQLi',
-    'param' => ['localhost', 'root', '', 'carnetizacionso']
+    'class' => '\\Cc\\Mvc\\PDO',
+    'param' => ['pgsql:host=localhost;port=5432;dbname=carnetizacionso;', 'postgres', '123456']
 ];
 
 /**

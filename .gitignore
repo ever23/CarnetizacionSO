@@ -46,3 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /protected/Cache/
+/vendor/ccmvc/ccmvc/nbproject/private/
+/vendor/
+/composer.lock

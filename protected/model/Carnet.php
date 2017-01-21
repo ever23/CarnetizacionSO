@@ -34,7 +34,7 @@ class Carnet
         // $estu = $this->estudiante;
         $carnet = new \Cc\ImageGD(Mvc::Config()->App['app'] . 'carnet.jpg');
 
-        $foto = new \Cc\ImageGD($f['bin_foto']);
+        $foto = new \Cc\ImageGD((string) $f['bin_foto']);
         //$carnet->CopyResample($carnet, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h)
         //$carnet->CopyResample($foto, 56, 90, 0, 0, 110, 90, $foto->w, $foto->h);
         $foto->Resize(110, 90);

@@ -186,7 +186,7 @@ class Cestudiante extends ExtendsController implements ExtByController, AccessUs
         $this->LoadView('estudiante/reporte.tpl');
     }
 
-    public function insertar(Html $h, MySQLi $db, DBtabla $estudiante, DBtabla $seccion, DBtabla $fotos, Cookie $cookie, $id_repre = NULL)
+    public function insertar(Html $h, \Cc\iDataBase $db, DBtabla $estudiante, DBtabla $seccion, DBtabla $fotos, Cookie $cookie, $id_repre = NULL)
     {
         $this->view->h1 = 'Insertar Estudiante';
         $this->view->type = 'agregar';
@@ -205,6 +205,7 @@ class Cestudiante extends ExtendsController implements ExtByController, AccessUs
                 $form['id_seccion'] = $seccion->AutoIncrement();
             }
             unset($form['grado_estu'], $form['id_docente'], $form['seccion_estu']);
+
             if (!$db->error && $estudiante->Insert($form))
             {
 
@@ -226,7 +227,7 @@ class Cestudiante extends ExtendsController implements ExtByController, AccessUs
         $this->LoadView('estudiante/form.tpl');
     }
 
-    public function guardar(ResponseConten $j, MySQLi $db, DBtabla $estudiante, DBtabla $seccion, DBtabla $fotos, Cookie $cookie, $id_estu = NULL, $id_repre = NULL, $type = 'insertar')
+    public function guardar(ResponseConten $j, \Cc\iDataBase $db, DBtabla $estudiante, DBtabla $seccion, DBtabla $fotos, Cookie $cookie, $id_estu = NULL, $id_repre = NULL, $type = 'insertar')
     {
         $form = new FormEstudiante(NULL, 'POST', false);
 //$j['submit'] = $_POST;
@@ -306,7 +307,7 @@ class Cestudiante extends ExtendsController implements ExtByController, AccessUs
         $j['v'] = $form['turno_estu'];
     }
 
-    public function editar(Html $h, MySQLi $db, DBtabla $estudiante, DBtabla $seccion, DBtabla $fotos, Cookie $cookie, $id_estu = 0)
+    public function editar(Html $h, \Cc\iDataBase $db, DBtabla $estudiante, DBtabla $seccion, DBtabla $fotos, Cookie $cookie, $id_estu = 0)
     {
         $this->view->h1 = 'Editar Estudiante';
         $this->view->type = 'editar';
@@ -352,7 +353,7 @@ class Cestudiante extends ExtendsController implements ExtByController, AccessUs
         $this->LoadView('estudiante/form.tpl');
     }
 
-    public function eliminar(Html $h, MySQLi $db, DBtabla $estudiante, DBtabla $fotos, Cookie $cookie, $id_estu = 0)
+    public function eliminar(Html $h, \Cc\iDataBase $db, DBtabla $estudiante, DBtabla $fotos, Cookie $cookie, $id_estu = 0)
     {
 
         $estudiante->Select("id_estu=" . $id_estu . " and ( '" . $this->view->session['type_user'] . "'='root')", ['>seccion', '>docentes'], "group by id_estu");

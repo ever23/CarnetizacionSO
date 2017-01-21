@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'class' => '\\Cc\\Mvc\\MySQLi',
-    'param' => ['localhost', 'root', '', 'carnetizacionso']
+    'class' => '\\Cc\\Mvc\\PDO',
+    'param' => ['sqlite:' . dirname(__FILE__) . '/DataBase.sqlite']
 ];
 
 /**

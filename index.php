@@ -1,6 +1,6 @@
 <?php
 
-include ("../CcMvc/CcMvc.php"); // CcMvc Framework
+include ("../CcMvc/CcMvc.php");
 //include("vendor/autoload.php");
 $config = dirname(__FILE__) . "/protected/configuracion.php"; // configuracion
 $app = CcMvc::Start($config, "Carnetizacion Safe Off");

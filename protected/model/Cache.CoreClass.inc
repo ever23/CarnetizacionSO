@@ -1,5 +1,5 @@
 <?php
-/* Create by \Cc\Autoload 2016-12-12 06:03:43 */
+/* Create by \Cc\Autoload 2017-01-21 03:17:35 */
  return array (
   'class' => 
   array (
@@ -11,6 +11,11 @@
     'Cc\\Mvc\\FormDocente' => 'ModelosDeFormularios.php',
     'Cc\\Mvc\\FormDocenteEditar' => 'ModelosDeFormularios.php',
     'Cc\\Mvc\\FormDocenteEditarContrasena' => 'ModelosDeFormularios.php',
+    'Cc\\Mvc\\TablaModel\\docentes' => 'DBtablaModel\\docentes.php',
+    'Cc\\Mvc\\TablaModel\\estudiante' => 'DBtablaModel\\estudiante.php',
+    'Cc\\Mvc\\TablaModel\\fotos' => 'DBtablaModel\\fotos.php',
+    'Cc\\Mvc\\TablaModel\\representante' => 'DBtablaModel\\representante.php',
+    'Cc\\Mvc\\TablaModel\\seccion' => 'DBtablaModel\\seccion.php',
   ),
   'DIRECTORY_SEPARATOR' => '\\',
 );

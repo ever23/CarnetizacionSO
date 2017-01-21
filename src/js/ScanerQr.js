@@ -43,7 +43,7 @@ $(document).ready(function () {
             decoder.WebCodeCam({
                 beep: "WebCodeCam-master/js/beep.mp3",
                 ReadQRCode: true, // false or true
-                ReadBarcode: true, // false or true
+                ReadBarcode: false, // false or true
                 videoSource: {
                     id: $('select#cameraId').val(),
                     maxWidth: 640,
@@ -108,7 +108,8 @@ $(document).ready(function () {
             document.querySelector('select#cameraId').remove();
         }
         $('#laser').css({'display': 'block', 'top': pcv.top, 'left': pcv.left});
-        laser();
+        $('#laser').addClass('laser-animation');
+        // laser();//laser-animation
     });
 
 

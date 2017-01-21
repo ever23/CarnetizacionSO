@@ -40,7 +40,6 @@ class Cfotos extends ExtendsController implements AccessUserController
         {
             $img = $fotos->fetch();
 
-
             // Router::HeadersReponseFiles($time, $img->mime_img, '+1 day');
             $this->ChangeContenType($img->mime_type);
 

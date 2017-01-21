@@ -15,12 +15,10 @@ class Autenticacion extends AuteticateUserDB
 
     protected function InfoUserDB()
     {
-        return [
-            self::TablaUsers => 'docentes',
-            self::CollUser => 'nomb_docente',
-            self::CollPassword => 'hash_docente',
-            self::CollUserType => 'type_user'
-        ];
+        $this->TablaDeUsuarios("docentes");
+        $this->ColUserName('nomb_docente');
+        $this->ColPassword('hash_docente');
+        $this->ColUserType('type_user');
     }
 
     public function OnFailed()

@@ -31,8 +31,7 @@ class Cdocente extends ExtendsController implements AccessUserController
 
     public function index(DBtabla $docentes, Request $r, $q = NULL, $id_docente = NULL)
     {
-        echo $r->Uri();
-        echo'<br>' . $r->Referer();
+
         if ($id_docente)
         {
             $docentes->Select("id_docente=" . $id_docente);

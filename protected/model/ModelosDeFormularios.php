@@ -25,23 +25,22 @@ class FormEstudiante extends FormModel
             $seccion = $secciones->fetch();
         }
         $grados = $secciones->GetValuesEnum('grado_seccion');
+
         // $grados = $estudiante->GetValuesEnum('grado_estu');
         $sexo = $estudiante->GetValuesEnum('sexo_estu');
-        return [
-            'cedula_estu' => ['text', '', ['required' => true, 'pattern' => "^(\d{7,8})$", 'maxlength' => 8]],
-            'nombres_estu' => ['text', '', ['required' => true]],
-            'apellidos_estu' => ['text', '', ['required' => true]],
-            'nacimiento_estu' => ['date', '', ['required' => true]],
-            'sexo_estu' => ['select', '', ['required' => true, 'options' => $sexo]],
-            'enfermedad_estu' => ['text', '', ['required' => false]],
-            'discapacidad_estu' => ['text', '', ['required' => false]],
-            'ingreso_estu' => ['date', '', ['required' => true]],
-            'turno_estu' => ['Select', '', ['required' => true, 'options' => $turnos]],
-            'grado_estu' => ['select', $seccion['grado_seccion'], ['required' => true, 'options' => $grados]],
-            'seccion_estu' => ['text', $seccion['char_seccion'], ['required' => true, 'pattern' => "\S{1}"]],
-            'id_repre' => ['text', '', ['required' => true, 'pattern' => "^(\d{7,8})$", 'maxlength' => 8]],
-            'id_foto' => ['file', '', ['required' => false]],
-        ];
+        $this->text('cedula_estu')->Validator("required|maxlength:8|pattern:^(\d{7,8})$");
+        $this->text('nombres_estu')->Validator("required");
+        $this->text('apellidos_estu')->Validator("required");
+        $this->date('nacimiento_estu')->Validator("required");
+        $this->text('sexo_estu')->Validator("required")->type('select')->in_options($sexo);
+        $this->text('enfermedad_estu');
+        $this->text('discapacidad_estu');
+        $this->date('ingreso_estu')->Validator("required");
+        $this->text('turno_estu')->Validator("required")->type('select')->in_options($turnos);
+        $this->text('grado_estu')->Validator("required")->type('select')->DefaultValue($seccion['grado_seccion'])->in_options($grados);
+        $this->text('seccion_estu')->Validator("required|pattern:\S{1}")->DefaultValue($seccion['char_seccion']);
+        $this->text('id_repre')->Validator("required|pattern:^(\d{7,8})$|maxlength:8");
+        $this->file('id_foto');
     }
 
     public function OnSubmit()
@@ -57,7 +56,7 @@ class FormEstudiante extends FormModel
             unset($this->enfermedad_estu);
         }
         //$form['id_docente']
-        //echo 'hola<pre>', var_dump($this->_ValuesModel);
+        // echo 'hola<pre>', var_dump($this->_ValuesModel);
     }
 
 }
@@ -67,13 +66,10 @@ class FormRepresentante extends FormModel
 
     public function campos()
     {
-
-        return [
-            'id_repre' => ['text', '', ['required' => true, 'pattern' => "^(\d{1,7}|\d{1,8})$", 'maxlength' => 8]],
-            'nombres_repre' => ['text', '', ['required' => true]],
-            'apellidos_repre' => ['text', '', ['required' => true]],
-            'telefono_repre' => ['text', '', ValidTelf::CreateValid(['required' => true, 'placeholder' => '0400-1234-123'])],
-        ];
+        $this->text('id_repre')->Validator("required|maxlength:8")->pattern("^(\d{1,7}|\d{1,8})$");
+        $this->text('nombres_repre')->Validator("required");
+        $this->text('apellidos_repre')->Validator("required");
+        $this->tel('telefono_repre')->Validator("required|placeholder:0400-1234-123");
     }
 
     public function OnSubmit()
@@ -90,17 +86,15 @@ class FormDocente extends FormModel
     {
         $docentes = Mvc::App()->DataBase()->Tab('docentes');
         $sexo = $docentes->GetValuesEnum('sexo_docente');
-        return [
-            'id_docente' => ['text', '', ['required' => true, 'pattern' => "^(\d{1,7}|\d{1,8})$", 'maxlength' => 8]],
-            'nombres_docente' => ['text', '', ['required' => true]],
-            'apellidos_docente' => ['text', '', ['required' => true]],
-            'sexo_docente' => ['select', '', ['required' => true, 'options' => $sexo]],
-            'naci_docente' => ['date', '', ['required' => true]],
-            'direccion' => ['text', '', ['required' => true]],
-            'nomb_docente' => ['text', '', ['required' => true]],
-            'pass' => ['password', '', ['required' => true]],
-            'pass2' => ['password', '', ['required' => true]],
-        ];
+        $this->text('id_docente')->Validator("required|maxlength:8")->pattern("^(\d{1,7}|\d{1,8})$");
+        $this->text('nombres_docente')->Validator("required");
+        $this->text('apellidos_docente')->Validator("required");
+        $this->text('sexo_docente')->Validator("required")->type('select')->in_options($sexo);
+        $this->date('naci_docente')->Validator("required");
+        $this->text('direccion')->Validator("required");
+        $this->text('nomb_docente')->Validator("required");
+        $this->text('pass')->Validator("required")->type('password');
+        $this->text('pass2')->Validator("required")->type('password');
     }
 
     public function OnSubmit()
@@ -122,15 +116,13 @@ class FormDocenteEditar extends FormModel
     {
         $docentes = Mvc::App()->DataBase()->Tab('docentes');
         $sexo = $docentes->GetValuesEnum('sexo_docente');
-        return [
-            'id_docente' => ['text', '', ['required' => FALSE, 'pattern' => "^(\d{1,7}|\d{1,8})$", 'maxlength' => 8]],
-            'nombres_docente' => ['text', '', ['required' => true]],
-            'apellidos_docente' => ['text', '', ['required' => true]],
-            'sexo_docente' => ['select', '', ['required' => true, 'options' => $sexo]],
-            'naci_docente' => ['date', '', ['required' => true]],
-            'direccion' => ['text', '', ['required' => true]],
-            'nomb_docente' => ['text', '', ['required' => true]],
-        ];
+        $this->text('id_docente')->Validator("maxlength:8")->pattern("^(\d{1,7}|\d{1,8})$");
+        $this->text('nombres_docente')->Validator("required");
+        $this->text('apellidos_docente')->Validator("required");
+        $this->text('sexo_docente')->Validator("required")->type('select')->in_options($sexo);
+        $this->date('naci_docente')->Validator("required");
+        $this->text('direccion')->Validator("required");
+        $this->text('nomb_docente')->Validator("required");
     }
 
     public function OnSubmit()
@@ -145,12 +137,9 @@ class FormDocenteEditarContrasena extends FormModel
 
     public function campos()
     {
-
-        return [
-            'pass' => ['password', '', ['required' => true]],
-            'pass1' => ['password', '', ['required' => true]],
-            'pass2' => ['password', '', ['required' => true]],
-        ];
+        $this->text('pass')->Validator("required")->type('password');
+        $this->text('pass1')->Validator("required")->type('password');
+        $this->text('pass2')->Validator("required")->type('password');
     }
 
     public function OnSubmit()
